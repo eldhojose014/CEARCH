@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CE Arch Builders</title>
+<meta name="description" content="CE Arch Builders builds homes and every other type of building in Ernakulam, Kerala.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="theme-color" content="#000000">
+<meta property="og:title" content="CE Arch Builders">
+<meta property="og:description" content="Homes and every type of building in Ernakulam, Kerala. Civil engineering innovations with architectural elegance.">
+<meta property="og:type" content="website">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "GeneralContractor", "name": "CE Arch Builders", "slogan": "Civil engineering innovations with architectural elegance", "telephone": "+91 94963 34078", "email": "eldhose.cearch@gmail.com", "address": {"@type": "PostalAddress", "addressLocality": "Ernakulam", "addressRegion": "Kerala", "addressCountry": "IN"}, "areaServed": "Ernakulam, Kerala"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@400;500;600;700&display=swap">
+<style>
+  /* Layout concept: a drafting sheet. Hairline grid, mono dimension labels, one brass accent over deep navy bands. */
+  :root {
+    --bg: #eef1f2;
+    --surface: #ffffff;
+    --fg: #14232e;
+    --muted: #55656f;
+    --line: #d3dbde;
+    --accent: #a05f00;
+    --accent-fill: #fbb03b;
+    --accent-ink: #14232e;
+    --band: #0b0b0c;
+    --band-fg: #f2f5f6;
+    --band-muted: #b9b6b0;
+    --band-line: rgba(255,255,255,.16);
+    --draw: #14232e;
+    --draw-soft: #8a9aa4;
+    --font-display: "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
+    --font-body: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0d0e10; --surface: #17191c; --fg: #eceef0; --muted: #a4a8ad; --line: #2b2e33;
+      --accent: #fbb03b; --accent-fill: #fbb03b; --accent-ink: #0b171f;
+      --band: #000000; --band-fg: #f2f5f6; --band-muted: #a4a8ad; --band-line: rgba(255,255,255,.14);
+      --draw: #eceef0; --draw-soft: #6a7078;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0d0e10; --surface: #17191c; --fg: #eceef0; --muted: #a4a8ad; --line: #2b2e33;
+    --accent: #fbb03b; --accent-fill: #fbb03b; --accent-ink: #0b171f;
+    --band: #000000; --band-fg: #f2f5f6; --band-muted: #a4a8ad; --band-line: rgba(255,255,255,.14);
+    --draw: #eceef0; --draw-soft: #6a7078;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 17px; line-height: 1.6; }
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--band); }
+  a { color: inherit; }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 700; line-height: 1.02; margin: 0; text-wrap: balance; letter-spacing: .005em; }
+  p { margin: 0; }
+  :focus-visible { outline: 3px solid var(--accent-fill); outline-offset: 3px; }
+
+  .wrap { width: 100%; max-width: 1180px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .band { background: var(--band); color: var(--band-fg); }
+  .label { font-family: var(--font-mono); font-size: .74rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+  .band .label { color: var(--accent-fill); }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 13px 22px; border: 1.5px solid transparent; border-radius: 3px; font: 600 .98rem var(--font-body); text-decoration: none; cursor: pointer; transition: background .15s, transform .15s; }
+  .btn-solid { background: var(--accent-fill); color: var(--accent-ink); }
+  .btn-solid:hover { transform: translateY(-1px); filter: brightness(1.06); }
+  .btn-line { border-color: var(--band-line); color: var(--band-fg); }
+  .btn-line:hover { background: rgba(255,255,255,.08); }
+
+  /* header */
+  header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--band); color: var(--band-fg); border-bottom: 1px solid var(--band-line); }
+  .nav { min-height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .mark { width: 66px; height: 42px; flex: none; }
+  .brand-text { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; letter-spacing: .08em; line-height: 1; }
+  .brand-text small { display: block; margin-top: 4px; font: 500 .62rem var(--font-mono); letter-spacing: .2em; color: var(--band-muted); }
+  nav ul { display: flex; gap: 28px; list-style: none; margin: 0; padding: 0; font-weight: 600; font-size: .95rem; }
+  nav a { text-decoration: none; padding: 6px 0; border-bottom: 2px solid transparent; }
+  nav a:hover { border-color: var(--accent-fill); }
+  .hcall { padding: 9px 16px; font-size: .9rem; white-space: nowrap; }
+  .menu-btn { display: none; background: none; border: 1px solid var(--band-line); border-radius: 3px; color: var(--band-fg); padding: 8px 14px; font: 600 .9rem var(--font-body); cursor: pointer; }
+
+  /* hero */
+  .hero { padding-block: 72px 76px; }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 56px; align-items: center; }
+  .hero h1 { font-size: clamp(3.2rem, 7.4vw, 6rem); text-transform: uppercase; margin: 18px 0 22px; }
+  .hero h1 em { font-style: normal; color: var(--accent-fill); }
+  .hero p.lead { font-size: 1.15rem; color: var(--band-muted); max-width: 34em; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  .hero-facts { display: flex; flex-wrap: wrap; gap: 8px 28px; margin: 40px 0 0; padding: 20px 0 0; border-top: 1px solid var(--band-line); list-style: none; font-family: var(--font-mono); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--band-muted); }
+  .sheet { background: var(--surface); border: 1px solid var(--line); padding: 14px; min-width: 0; }
+  .sheet svg { display: block; width: 100%; height: auto; }
+  .sheet-cap { display: flex; justify-content: space-between; gap: 12px; padding: 10px 4px 2px; font: 500 .68rem var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .d-line { stroke: var(--draw); stroke-width: 1.6; fill: none; stroke-linejoin: round; }
+  .d-soft { stroke: var(--draw-soft); stroke-width: 1; fill: none; }
+  .d-dash { stroke: var(--draw-soft); stroke-width: 1; fill: none; stroke-dasharray: 5 4; }
+  .d-fill { fill: var(--surface); }
+  .d-accent { fill: var(--accent-fill); }
+  .d-text { font: 500 11px var(--font-mono); fill: var(--muted); letter-spacing: .06em; }
+
+  section.block { padding-block: 92px; }
+  .head { max-width: 40rem; margin-bottom: 44px; }
+  .head h2 { font-size: clamp(2.3rem, 5vw, 3.6rem); text-transform: uppercase; margin: 12px 0 14px; }
+  .head p { color: var(--muted); }
+  .band .head p { color: var(--band-muted); }
+
+  /* about */
+  .about { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 64px; align-items: start; }
+  .about-copy p + p { margin-top: 16px; }
+  .about-copy p { color: var(--muted); }
+  .scope { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+  .scope li { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+  .scope .tag { font: 500 .78rem var(--font-mono); color: var(--accent); letter-spacing: .08em; }
+  .scope strong { display: block; font: 700 1.5rem/1.1 var(--font-display); text-transform: uppercase; letter-spacing: .01em; margin-bottom: 4px; }
+  .scope span { color: var(--muted); font-size: .96rem; }
+
+  /* services as spec table */
+  .services { background: var(--surface); border-block: 1px solid var(--line); }
+  .spec { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+  .spec article { padding: 30px 28px 34px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); min-width: 0; }
+  .spec .ic { width: 40px; height: 40px; margin-bottom: 20px; }
+  .spec .ic path, .spec .ic rect, .spec .ic line, .spec .ic polyline, .spec .ic circle { stroke: var(--fg); stroke-width: 1.6; fill: none; stroke-linejoin: round; stroke-linecap: round; }
+  .spec h3 { font-size: 1.6rem; text-transform: uppercase; margin-bottom: 10px; }
+  .spec p { color: var(--muted); font-size: .97rem; }
+
+  /* projects */
+  .projects-box { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 56px; align-items: center; }
+  .asks { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--band-line); }
+  .asks li { display: flex; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--band-line); color: var(--band-fg); }
+  .asks li span:first-child { font: 500 .78rem var(--font-mono); color: var(--accent-fill); letter-spacing: .08em; padding-top: 4px; }
+  .projects-box .btn { margin-top: 28px; }
+
+  /* process */
+  .steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; counter-reset: s; }
+  .step { position: relative; padding: 26px 24px 0 0; border-top: 2px solid var(--fg); }
+  .step::before { content: ""; position: absolute; top: -7px; left: 0; width: 12px; height: 12px; background: var(--accent-fill); border: 2px solid var(--bg); }
+  .step .label { display: block; margin-bottom: 8px; }
+  .step h3 { font-size: 1.7rem; text-transform: uppercase; margin-bottom: 8px; }
+  .step p { color: var(--muted); font-size: .97rem; }
+
+  /* contact */
+  .contact { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 56px; align-items: start; }
+  .card { background: var(--band); color: var(--band-fg); padding: 34px; }
+  .card h3 { font-size: 2rem; text-transform: uppercase; margin-bottom: 6px; }
+  .card > p { color: var(--band-muted); margin-bottom: 14px; }
+  .row { padding: 16px 0; border-top: 1px solid var(--band-line); }
+  .row .label { display: block; margin-bottom: 4px; }
+  .row .val { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+  .row code { font: 500 1rem var(--font-mono); word-break: break-all; user-select: all; }
+  .copy { background: none; border: 1px solid var(--band-line); color: var(--band-fg); border-radius: 3px; padding: 4px 12px; font: 600 .78rem var(--font-body); cursor: pointer; }
+  .copy:hover { background: rgba(255,255,255,.1); }
+  form { display: grid; gap: 16px; min-width: 0; }
+  .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  label { display: block; font: 600 .84rem var(--font-body); margin-bottom: 6px; }
+  input, select, textarea { width: 100%; padding: 13px 14px; border: 1px solid var(--line); border-radius: 3px; background: var(--surface); color: var(--fg); font: inherit; }
+  textarea { min-height: 130px; resize: vertical; }
+  .hint { font-size: .85rem; color: var(--muted); }
+  .wa-out { border: 1px solid var(--accent); padding: 16px 18px; display: grid; gap: 10px; background: var(--surface); }
+  .wa-out p { font-size: .95rem; }
+  .wa-out a.btn { justify-self: start; }
+
+
+  /* project gallery */
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+  .fbtn { background: none; border: 1px solid var(--band-line); color: var(--band-fg); border-radius: 3px; padding: 8px 16px; font: 600 .88rem var(--font-body); cursor: pointer; }
+  .fbtn:hover { background: rgba(255,255,255,.08); }
+  .fbtn[aria-pressed="true"] { background: var(--accent-fill); border-color: var(--accent-fill); color: var(--accent-ink); }
+  .pgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .pcard { display: flex; flex-direction: column; text-align: left; padding: 0; background: #131416; color: var(--band-fg); border: 1px solid var(--band-line); cursor: pointer; font: inherit; min-width: 0; }
+  .pcard:hover { border-color: var(--accent-fill); }
+  .thumb { position: relative; aspect-ratio: 4 / 3; background: #1b1d20; overflow: hidden; }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .thumb svg { width: 100%; height: 100%; display: block; }
+  .badge { position: absolute; top: 10px; left: 10px; padding: 3px 9px; background: var(--accent-fill); color: #0b0b0c; font: 500 .68rem var(--font-mono); letter-spacing: .1em; text-transform: uppercase; }
+  .badge.alt { left: auto; right: 10px; background: #0b0b0c; color: var(--band-fg); border: 1px solid var(--band-line); }
+  .pbody { padding: 18px 18px 20px; }
+  .pbody h3 { font-size: 1.5rem; text-transform: uppercase; margin: 6px 0 6px; }
+  .pbody p { color: var(--band-muted); font-size: .94rem; }
+  .more { margin-top: 24px; }
+  .pempty { color: var(--band-muted); border: 1px dashed var(--band-line); padding: 28px; }
+  dialog { width: min(760px, calc(100% - 24px)); max-height: calc(100% - 24px); padding: 0; border: 1px solid var(--line); background: var(--surface); color: var(--fg); overflow: auto; }
+  dialog::backdrop { background: rgba(0,0,0,.72); }
+  .dclose { position: absolute; top: 10px; right: 10px; z-index: 2; width: 38px; height: 38px; border: 0; border-radius: 3px; background: #0b0b0c; color: #fff; font-size: 1.1rem; cursor: pointer; }
+  .dimg { aspect-ratio: 16 / 10; background: #1b1d20; }
+  .dimg img, .dimg svg { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .dnav { display: flex; align-items: center; justify-content: center; gap: 16px; padding: 10px; border-bottom: 1px solid var(--line); font: 500 .8rem var(--font-mono); }
+  .dnav button { border: 1px solid var(--line); background: none; color: var(--fg); border-radius: 3px; padding: 4px 14px; font-size: 1.1rem; cursor: pointer; }
+  .dbody { padding: 24px 26px 28px; }
+  .dbody h3 { font-size: 2.2rem; text-transform: uppercase; margin: 8px 0 10px; }
+  .dbody p { color: var(--muted); }
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 14px; margin: 20px 0 24px; padding: 16px 0; border-block: 1px solid var(--line); }
+  .facts dt { font: 500 .68rem var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+  .facts dd { margin: 2px 0 0; font-weight: 600; }
+
+  /* reviews + faq */
+  .reviews { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .review { background: var(--surface); border: 1px solid var(--line); padding: 26px; margin: 0; }
+  .review p { font-size: 1.02rem; }
+  .review footer { background: none; padding: 16px 0 0; color: var(--muted); font: 500 .8rem var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+  .faq { max-width: 52rem; border-top: 1px solid var(--line); }
+  .faq details { border-bottom: 1px solid var(--line); }
+  .faq summary { cursor: pointer; padding: 20px 36px 20px 0; font: 700 1.35rem/1.15 var(--font-display); text-transform: uppercase; list-style: none; position: relative; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; position: absolute; right: 4px; top: 16px; font: 500 1.5rem var(--font-mono); color: var(--accent); }
+  .faq details[open] summary::after { content: "–"; }
+  .faq details p { color: var(--muted); padding: 0 0 22px; max-width: 42rem; }
+  .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips li { border: 1px solid var(--line); background: var(--bg); padding: 7px 14px; font: 500 .85rem var(--font-mono); }
+  .fab { position: fixed; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 25; display: inline-flex; align-items: center; gap: 8px; padding: 13px 20px; border-radius: 40px; background: #25d366; color: #06210f; font: 700 .95rem var(--font-body); text-decoration: none; box-shadow: 0 4px 16px rgba(0,0,0,.35); }
+  .fab svg { width: 20px; height: 20px; fill: currentColor; }
+
+  footer { background: var(--band); color: var(--band-muted); padding-block: 30px; font-size: .88rem; }
+  .foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; align-items: center; }
+  .foot strong { color: var(--band-fg); font-family: var(--font-display); letter-spacing: .1em; font-size: 1.05rem; }
+  .foot a { color: var(--accent-fill); }
+
+  @media (max-width: 960px) {
+    .pgrid, .reviews { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .hero-grid, .about, .projects-box, .contact { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+    .spec { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 36px; }
+    .menu-btn { display: inline-block; }
+    nav { position: absolute; left: 0; right: 0; top: 100%; background: var(--band); border-bottom: 1px solid var(--band-line); display: none; padding: 8px max(16px, env(safe-area-inset-left, 0px)) 18px; }
+    nav.open { display: block; }
+    nav ul { flex-direction: column; gap: 0; }
+    nav li a { display: block; padding: 14px 0; border-bottom: 1px solid var(--band-line); }
+  }
+  @media (max-width: 600px) {
+    .hero { padding-block: 48px 56px; }
+    section.block { padding-block: 64px; }
+    .spec, .steps, .two, .pgrid, .reviews { grid-template-columns: minmax(0, 1fr); }
+    .fab span { display: none; }
+    .fab { padding: 14px; }
+    .card { padding: 24px; }
+    .brand-text small { display: none; }
+    .hcall span { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn { transition: none; } }
+</style>
+</head>
+<body>
+
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="CE Arch Builders, home">
+      <svg class="mark" viewBox="565 465 840 545" aria-hidden="true" fill="none" stroke="#fbb03b" stroke-width="31" stroke-linecap="round" stroke-linejoin="round"><path d="M838 670H590V983H1272"/><path d="M965 676V975"/><path d="M900 732L1144 488L1389 732"/></svg>
+      <span class="brand-text">CE ARCH BUILDERS<small>ERNAKULAM · KERALA</small></span>
+    </a>
+    <nav id="nav" aria-label="Main">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-solid hcall" href="tel:+919496334078" aria-label="Call CE Arch Builders">Call <span>+91 94963 34078</span></a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="band hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="label">Civil engineering · Architectural elegance</span>
+        <h1>Homes built<br><em>with care.</em></h1>
+        <p class="lead">CE Arch Builders builds homes in Ernakulam, Kerala, with civil engineering innovations and architectural elegance. We take on every other type of building too.</p>
+        <div class="hero-actions">
+          <a class="btn btn-solid" href="#contact">Discuss your project</a>
+          <a class="btn btn-line" href="#services">See what we build</a>
+        </div>
+        <ul class="hero-facts">
+          <li>Homes &amp; villas</li>
+          <li>All building types</li>
+          <li>Renovation</li>
+        </ul>
+      </div>
+      <figure class="sheet" style="margin:0">
+        <svg viewBox="0 0 520 400" role="img" aria-label="Line drawing of a house elevation with a pitched roof">
+          <line class="d-soft" x1="20" y1="330" x2="500" y2="330"/>
+          <line class="d-dash" x1="60" y1="40" x2="60" y2="360"/>
+          <line class="d-dash" x1="460" y1="40" x2="460" y2="360"/>
+          <rect class="d-fill" x="90" y="170" width="300" height="160"/>
+          <polygon class="d-fill" points="70,170 240,62 410,170"/>
+          <polyline class="d-line" points="90,330 90,170 70,170 240,62 410,170 390,170 390,330 90,330"/>
+          <line class="d-line" x1="90" y1="170" x2="390" y2="170"/>
+          <rect class="d-line d-fill" x="115" y="205" width="62" height="62"/>
+          <line class="d-soft" x1="146" y1="205" x2="146" y2="267"/><line class="d-soft" x1="115" y1="236" x2="177" y2="236"/>
+          <rect class="d-line d-fill" x="303" y="205" width="62" height="62"/>
+          <line class="d-soft" x1="334" y1="205" x2="334" y2="267"/><line class="d-soft" x1="303" y1="236" x2="365" y2="236"/>
+          <rect class="d-accent" x="212" y="226" width="56" height="104"/>
+          <rect class="d-line" x="212" y="226" width="56" height="104" style="fill:none"/>
+          <circle cx="258" cy="280" r="2.6" fill="var(--draw)"/>
+          <line class="d-soft" x1="90" y1="352" x2="390" y2="352"/>
+          <line class="d-soft" x1="90" y1="346" x2="90" y2="358"/><line class="d-soft" x1="390" y1="346" x2="390" y2="358"/>
+          <text class="d-text" x="240" y="373" text-anchor="middle">FRONT ELEVATION</text>
+          <text class="d-text" x="240" y="48" text-anchor="middle">RIDGE</text>
+        </svg>
+        <div class="sheet-cap"><span>Sheet 01 · Elevation</span><span>Illustration</span></div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="block" id="about">
+    <div class="wrap about">
+      <div class="about-copy">
+        <span class="label">Who we are</span>
+        <div class="head" style="margin:12px 0 18px"><h2 style="margin:0">Engineering confidence into every build.</h2></div>
+        <p>CE Arch Builders is a construction company in Ernakulam, Kerala. Houses are our main work, and we build every other type of building as well. We handle the planning, technical coordination and site work that take a project from drawing to handover.</p>
+        <p>Our approach is plain. Understand the brief, plan carefully, tell you what is happening on site, and pay attention to the details that decide whether a building lasts.</p>
+        <div style="margin-top:28px"><a class="btn btn-solid" href="#contact">Tell us about your project</a></div>
+      </div>
+      <ul class="scope">
+        <li><span class="tag">A</span><div><strong>Residential building</strong><span>Individual homes and villas, built to the approved drawings.</span></div></li>
+        <li><span class="tag">B</span><div><strong>Every other building type</strong><span>Commercial, industrial and steel buildings, with the structural detail coordinated.</span></div></li>
+        <li><span class="tag">C</span><div><strong>Coordination and supervision</strong><span>One point of contact between design, engineering and the site team.</span></div></li>
+        <li><span class="tag">D</span><div><strong>Direct communication</strong><span>Scope, changes and progress discussed openly with you.</span></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block services" id="services">
+    <div class="wrap">
+      <div class="head">
+        <span class="label">What we build</span>
+        <h2>Houses first. Every building type.</h2>
+        <p>Scope for each job is agreed after we review your drawings, site and requirements.</p>
+      </div>
+      <div class="spec">
+        <article>
+          <svg class="ic" viewBox="0 0 40 40" aria-hidden="true"><polyline points="5,19 20,6 35,19"/><rect x="9" y="19" width="22" height="15"/><rect x="17" y="25" width="6" height="9"/></svg>
+          <span class="label" style="display:block;margin-bottom:8px">Main focus</span><h3>Residential construction</h3><p>Homes and villas, with attention to layout, workmanship and finishing quality.</p>
+        </article>
+        <article>
+          <svg class="ic" viewBox="0 0 40 40" aria-hidden="true"><line x1="6" y1="34" x2="6" y2="10"/><line x1="34" y1="34" x2="34" y2="10"/><polyline points="6,10 20,4 34,10"/><line x1="6" y1="22" x2="34" y2="22"/><line x1="6" y1="22" x2="20" y2="10"/><line x1="34" y1="22" x2="20" y2="10"/></svg>
+          <h3>Steel structures</h3><p>Execution support for steel buildings, sheds and commercial structures.</p>
+        </article>
+        <article>
+          <svg class="ic" viewBox="0 0 40 40" aria-hidden="true"><rect x="6" y="6" width="28" height="28"/><line x1="6" y1="20" x2="34" y2="20"/><line x1="20" y1="6" x2="20" y2="34"/><circle cx="20" cy="20" r="3"/></svg>
+          <h3>Structural engineering</h3><p>Planning and coordination of structural requirements, carried through to site execution.</p>
+        </article>
+        <article>
+          <svg class="ic" viewBox="0 0 40 40" aria-hidden="true"><path d="M6 34 L8 26 L28 6 L34 12 L14 32 Z"/><line x1="24" y1="10" x2="30" y2="16"/></svg>
+          <h3>Design coordination</h3><p>Keeping architectural intent, engineering needs and construction activity aligned.</p>
+        </article>
+        <article>
+          <svg class="ic" viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="16" width="18" height="18"/><polyline points="3,17 14,8 25,17"/><line x1="26" y1="22" x2="36" y2="22"/><line x1="31" y1="17" x2="31" y2="27"/></svg>
+          <h3>Renovation and extension</h3><p>Alterations and additions planned around the existing building and your brief.</p>
+        </article>
+        <article>
+          <svg class="ic" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="14"/><polyline points="20,10 20,20 27,24"/></svg>
+          <h3>Project supervision</h3><p>Site coordination and work-stage monitoring, with regular updates to you.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band block" id="projects">
+    <div class="wrap">
+      <div class="head">
+        <span class="label">Projects</span>
+        <h2>Our work.</h2>
+        <p>Completed and ongoing projects. Tap a project to see details and photos.</p>
+      </div>
+      <div class="filters" id="filters" role="group" aria-label="Filter projects"></div>
+      <div class="pgrid" id="pgrid"></div>
+      <div class="more"><button class="btn btn-line" id="pmore" type="button" hidden>Show more projects</button></div>
+      <p class="pempty" id="pempty" hidden>Our project gallery is being put together. Ask us for references or a site visit.</p>
+      <div class="hero-actions">
+        <a class="btn btn-solid" href="#contact">Discuss your project</a>
+        <a class="btn btn-line" href="#contact">Ask for a site visit</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="reviews" hidden>
+    <div class="wrap">
+      <div class="head"><span class="label">Client words</span><h2>What clients say.</h2></div>
+      <div class="reviews" id="reviewGrid"></div>
+    </div>
+  </section>
+
+  <section class="block" id="process">
+    <div class="wrap">
+      <div class="head">
+        <span class="label">How a project runs</span>
+        <h2>Four stages, in this order.</h2>
+        <p>Every project differs. This sequence keeps expectations and site activity lined up.</p>
+      </div>
+      <div class="steps">
+        <div class="step"><span class="label">Stage 1</span><h3>Understand</h3><p>We discuss your requirements, budget, site conditions and priorities.</p></div>
+        <div class="step"><span class="label">Stage 2</span><h3>Plan</h3><p>We review drawings, scope, materials and the order of work.</p></div>
+        <div class="step"><span class="label">Stage 3</span><h3>Execute</h3><p>We coordinate construction with a focus on workmanship and safety.</p></div>
+        <div class="step"><span class="label">Stage 4</span><h3>Handover</h3><p>We inspect the finished work, close open items and hand over.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block services" id="trust" hidden>
+    <div class="wrap">
+      <div class="head"><span class="label">Where and how</span><h2>Areas and credentials.</h2><p>Where we work, and the registrations behind the work.</p></div>
+      <div class="two" style="gap:40px;align-items:start">
+        <div id="areasBox" hidden><h3 style="font-size:1.6rem;text-transform:uppercase;margin-bottom:14px">Service areas</h3><ul class="chips" id="areaList"></ul></div>
+        <div id="credBox" hidden><h3 style="font-size:1.6rem;text-transform:uppercase;margin-bottom:14px">Registrations and credentials</h3><ul class="scope" id="credList"></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="faq">
+    <div class="wrap">
+      <div class="head"><span class="label">Questions</span><h2>Before you start.</h2></div>
+      <div class="faq">
+        <details><summary>How do I get started?</summary><p>Call us or send the enquiry form. We discuss your requirements and site, then arrange a meeting or site visit to agree the scope.</p></details>
+        <details><summary>Can you build from my own drawings?</summary><p>Yes. Share your approved drawings and we will review them with you. If you still need drawings, we can coordinate with the design and engineering team.</p></details>
+        <details><summary>Do you take renovations and extensions?</summary><p>Yes. We plan alterations and additions around the existing building and your brief.</p></details>
+        <details><summary>Do you build commercial and steel buildings?</summary><p>Yes. Houses are our main work, and we also take commercial, industrial and steel structures.</p></details>
+        <details><summary>How will I know what is happening on site?</summary><p>You have one point of contact, and progress and any changes are discussed openly with you.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="block services" id="contact" style="border-bottom:0">
+    <div class="wrap">
+      <div class="head">
+        <span class="label">Contact</span>
+        <h2>Let's talk about your site.</h2>
+        <p>Call, write, or send the form. The form prepares a WhatsApp message you send yourself.</p>
+      </div>
+      <div class="contact">
+        <div class="card">
+          <h3>CE Arch Builders</h3>
+          <p>Construction and engineering services in Ernakulam, Kerala.</p>
+          <div class="row"><span class="label">Phone</span><div class="val"><code id="phoneTxt">+91 94963 34078</code><button class="copy" type="button" data-copy="+919496334078">Copy</button><a class="copy" href="tel:+919496334078" style="text-decoration:none">Call</a></div></div>
+          <div class="row"><span class="label">Email</span><div class="val"><code id="mailTxt">eldhose.cearch@gmail.com</code><button class="copy" type="button" data-copy="eldhose.cearch@gmail.com">Copy</button><a class="copy" href="mailto:eldhose.cearch@gmail.com" style="text-decoration:none">Write</a></div></div>
+          <div class="row"><span class="label">Location</span><div class="val">Ernakulam, Kerala, India</div></div>
+          <div class="row"><span class="label">Hours</span><div class="val">By appointment</div></div>
+        </div>
+
+        <form id="enquiry" novalidate>
+          <div class="two">
+            <div><label for="name">Your name</label><input id="name" name="name" autocomplete="name" required placeholder="Full name"></div>
+            <div><label for="phone">Phone number</label><input id="phone" name="phone" type="tel" autocomplete="tel" required placeholder="Your mobile number"></div>
+          </div>
+          <div><label for="email">Email (optional)</label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com"></div>
+          <div><label for="service">What do you need?</label>
+            <select id="service" name="service">
+              <option>Residential construction</option><option>Steel structure</option><option>Structural engineering</option><option>Renovation / extension</option><option>Project supervision</option><option>Other enquiry</option>
+            </select></div>
+          <div class="two">
+            <div><label for="loc">Site location</label><input id="loc" name="loc" placeholder="Area / town"></div>
+            <div><label for="when">When to start</label><select id="when" name="when"><option>Not decided yet</option><option>Within 3 months</option><option>3 to 6 months</option><option>Still planning</option></select></div>
+          </div>
+          <div><label for="message">Project details</label><textarea id="message" name="message" required placeholder="Where is the site, what do you want to build, and when would you like to start?"></textarea></div>
+          <button class="btn btn-solid" type="submit" style="justify-self:start">Prepare WhatsApp message</button>
+          <p class="hint" id="formHint">Nothing is stored on this page. Your message opens in WhatsApp and goes only when you send it.</p>
+          <div class="wa-out" id="waOut" hidden>
+            <p>Your message is ready. Open WhatsApp to review and send it.</p>
+            <a class="btn btn-solid" id="waLink" href="#" target="_blank" rel="noopener noreferrer">Open WhatsApp</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div><strong>CE ARCH BUILDERS</strong> &nbsp;·&nbsp; Ernakulam, Kerala</div>
+    <div>Civil engineering innovations with architectural elegance</div>
+    <div>© <span id="yr">2026</span> CE Arch Builders. All rights reserved.</div>
+    <div id="social"></div>
+    <a href="#top">Back to top ↑</a>
+  </div>
+</footer>
+
+<dialog id="pdlg" aria-labelledby="pdTitle">
+  <button class="dclose" id="pdClose" type="button" aria-label="Close">✕</button>
+  <div class="dimg" id="pdImg"></div>
+  <div class="dnav" id="pdNav" hidden><button type="button" id="pdPrev" aria-label="Previous photo">‹</button><span id="pdCount"></span><button type="button" id="pdNext" aria-label="Next photo">›</button></div>
+  <div class="dbody">
+    <span class="label" id="pdMeta"></span>
+    <h3 id="pdTitle"></h3>
+    <p id="pdText"></p>
+    <dl class="facts" id="pdFacts"></dl>
+    <a class="btn btn-solid" href="#contact" id="pdCta">Build something similar</a>
+  </div>
+</dialog>
+
+<a class="fab" href="https://wa.me/919496334078" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.2c-.2.6-1.300 1.200-1.800 1.200-.5.100-1 .2-3.300-.7-2.800-1.200-4.600-4-4.700-4.200-.1-.2-1.100-1.500-1.100-2.800s.7-2 .9-2.300c.2-.3.500-.3.700-.3h.5c.2 0 .4 0 .6.500l.8 2c.1.200.1.300 0 .5l-.4.600c-.1.200-.3.300-.1.600.2.300.8 1.300 1.700 2.100 1.200 1 2.100 1.300 2.400 1.500.3.100.5.100.6-.1l.9-1.100c.2-.3.400-.2.600-.1l1.900.9c.3.100.5.200.5.300.1.200.1.800-.1 1.400z"/></svg><span>WhatsApp</span></a>
+
+<script src="projects/projects.js"></script>
+<script>
+  (function () {
+    var btn = document.getElementById('menuBtn'), nav = document.getElementById('nav');
+    function setMenu(open) { nav.classList.toggle('open', open); btn.setAttribute('aria-expanded', String(open)); btn.textContent = open ? 'Close' : 'Menu'; }
+    btn.addEventListener('click', function () { setMenu(!nav.classList.contains('open')); });
+    nav.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
+
+
+    /* Projects load from projects/projects.js, which the Add Project page (add-project.html) updates. */
+    var PROJECTS = window.PROJECTS || [];
+    /* Client reviews: leave empty to hide the section. Example: { text: "Well built and on time.", name: "Client name", place: "Kochi" } */
+    var REVIEWS = [];
+
+    function el(t, c, x) { var n = document.createElement(t); if (c) n.className = c; if (x != null) n.textContent = x; return n; }
+    var NS = 'http://www.w3.org/2000/svg';
+    function placeholder() {
+      var s = document.createElementNS(NS, 'svg'); s.setAttribute('viewBox', '0 0 400 300'); s.setAttribute('aria-hidden', 'true');
+      s.innerHTML = '<g fill="none" stroke="#fbb03b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M110 150V232H290V150"/><path d="M90 160L200 70L310 160"/><path d="M175 232V185H225V232"/></g><text x="200" y="268" text-anchor="middle" font-family="monospace" font-size="12" fill="#8a9aa4" letter-spacing="2">PHOTO COMING SOON</text>';
+      return s;
+    }
+    function media(p, i, thumb) {
+      if (p.images && p.images.length) { var im = el('img'); im.src = (thumb && p.thumb) ? p.thumb : p.images[i || 0]; im.alt = p.title; im.loading = 'lazy'; im.decoding = 'async'; return im; }
+      return placeholder();
+    }
+
+    var grid = document.getElementById('pgrid'), filt = document.getElementById('filters'), empty = document.getElementById('pempty');
+    var dlg = document.getElementById('pdlg'), cur = null, idx = 0;
+    function showImg() {
+      var box = document.getElementById('pdImg'); box.textContent = ''; box.appendChild(media(cur, idx));
+      var n = cur.images ? cur.images.length : 0;
+      document.getElementById('pdNav').hidden = n < 2;
+      document.getElementById('pdCount').textContent = (idx + 1) + ' / ' + n;
+    }
+    function openProject(p) {
+      cur = p; idx = 0; showImg();
+      document.getElementById('pdMeta').textContent = [p.type, p.status].filter(Boolean).join(' · ');
+      document.getElementById('pdTitle').textContent = p.title;
+      document.getElementById('pdText').textContent = p.summary || '';
+      var dl = document.getElementById('pdFacts'); dl.textContent = '';
+      [['Location', p.location], ['Year', p.year], ['Built-up area', p.area], ['Status', p.status]].forEach(function (f) {
+        if (f[1]) { var d = el('div'); d.appendChild(el('dt', '', f[0])); d.appendChild(el('dd', '', f[1])); dl.appendChild(d); }
+      });
+      dl.hidden = !dl.children.length;
+      if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+    }
+    var PAGE = 9, shown = PAGE, curType = 'All', more = document.getElementById('pmore');
+    function renderProjects(type) {
+      if (type !== undefined && type !== curType) { curType = type; shown = PAGE; }
+      grid.textContent = '';
+      var list = PROJECTS.filter(function (p) { return curType === 'All' || p.type === curType; });
+      empty.hidden = PROJECTS.length > 0; filt.hidden = PROJECTS.length < 2;
+      list.slice(0, shown).forEach(function (p) {
+        var b = el('button', 'pcard'); b.type = 'button'; b.setAttribute('aria-label', 'View project: ' + p.title);
+        var t = el('div', 'thumb'); t.appendChild(media(p, 0, true));
+        if (p.sample) t.appendChild(el('span', 'badge', 'Sample'));
+        if (p.status) t.appendChild(el('span', 'badge alt', p.status));
+        var body = el('div', 'pbody'); body.appendChild(el('span', 'label', [p.type, p.location].filter(Boolean).join(' · ')));
+        body.appendChild(el('h3', '', p.title)); if (p.summary) body.appendChild(el('p', '', p.summary));
+        b.appendChild(t); b.appendChild(body); b.addEventListener('click', function () { openProject(p); }); grid.appendChild(b);
+      });
+      more.hidden = list.length <= shown;
+      more.textContent = 'Show more projects (' + (list.length - shown) + ' more)';
+    }
+    more.addEventListener('click', function () { shown += PAGE; renderProjects(); });
+    var types = ['All']; PROJECTS.forEach(function (p) { if (p.type && types.indexOf(p.type) < 0) types.push(p.type); });
+    types.forEach(function (t, i) {
+      var b = el('button', 'fbtn', t); b.type = 'button'; b.setAttribute('aria-pressed', String(i === 0));
+      b.addEventListener('click', function () { filt.querySelectorAll('.fbtn').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); }); renderProjects(t); });
+      filt.appendChild(b);
+    });
+    renderProjects('All');
+    document.getElementById('pdClose').addEventListener('click', function () { dlg.close ? dlg.close() : dlg.removeAttribute('open'); });
+    document.getElementById('pdCta').addEventListener('click', function () { dlg.close ? dlg.close() : dlg.removeAttribute('open'); });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+    document.getElementById('pdPrev').addEventListener('click', function () { idx = (idx - 1 + cur.images.length) % cur.images.length; showImg(); });
+    document.getElementById('pdNext').addEventListener('click', function () { idx = (idx + 1) % cur.images.length; showImg(); });
+
+    if (REVIEWS.length) {
+      var rg = document.getElementById('reviewGrid');
+      REVIEWS.forEach(function (r) { var f = el('figure', 'review'); f.appendChild(el('p', '', '\u201C' + r.text + '\u201D')); f.appendChild(el('footer', '', [r.name, r.place].filter(Boolean).join(' · '))); rg.appendChild(f); });
+      document.getElementById('reviews').hidden = false;
+    }
+
+
+    /* Service areas, credentials and social links: fill in and the sections appear; leave empty and they stay hidden.
+       Credentials example: { title: "Contractor registration", note: "Registration number or issuing body" } */
+    var AREAS = ["Ernakulam"];
+    var CREDENTIALS = [];
+    var SOCIAL = []; /* example: { name: "Instagram", url: "https://instagram.com/yourpage" }, { name: "Facebook", url: "https://facebook.com/yourpage" }, { name: "Google reviews", url: "https://g.page/..." } */
+    if (AREAS.length) { var al = document.getElementById('areaList'); AREAS.forEach(function (a) { al.appendChild(el('li', '', a)); }); document.getElementById('areasBox').hidden = false; }
+    if (CREDENTIALS.length) {
+      var cl = document.getElementById('credList');
+      CREDENTIALS.forEach(function (c, i) { var li = el('li'); li.appendChild(el('span', 'tag', String.fromCharCode(65 + i))); var d = el('div'); d.appendChild(el('strong', '', c.title)); if (c.note) d.appendChild(el('span', '', c.note)); li.appendChild(d); cl.appendChild(li); });
+      document.getElementById('credBox').hidden = false;
+    }
+    document.getElementById('trust').hidden = !(AREAS.length || CREDENTIALS.length);
+    var soc = document.getElementById('social');
+    SOCIAL.forEach(function (x, i) { var a = el('a', '', x.name); a.href = x.url; a.target = '_blank'; a.rel = 'noopener noreferrer'; if (i) soc.appendChild(document.createTextNode(' · ')); soc.appendChild(a); });
+
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    function selectText(el) { var r = document.createRange(); r.selectNodeContents(el); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); }
+    document.querySelectorAll('[data-copy]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var code = b.parentNode.querySelector('code');
+        var done = function () { var t = b.textContent; b.textContent = 'Copied'; setTimeout(function () { b.textContent = t; }, 1400); };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(b.getAttribute('data-copy')).then(done, function () { selectText(code); });
+        } else { selectText(code); }
+      });
+    });
+
+    var form = document.getElementById('enquiry');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var f = form.elements;
+      if (!f.name.value.trim() || !f.phone.value.trim() || !f.message.value.trim()) {
+        document.getElementById('formHint').textContent = 'Please fill in your name, phone number and project details.';
+        (!f.name.value.trim() ? f.name : !f.phone.value.trim() ? f.phone : f.message).focus();
+        return;
+      }
+      var text = [
+        'Hello CE Arch Builders,',
+        'I would like to discuss a project.',
+        'Name: ' + f.name.value.trim(),
+        'Phone: ' + f.phone.value.trim(),
+        'Email: ' + (f.email.value.trim() || 'Not provided'),
+        'Service: ' + f.service.value,
+        'Site location: ' + (f.loc.value.trim() || 'Not provided'),
+        'Start: ' + f.when.value,
+        'Project details: ' + f.message.value.trim()
+      ].join('\n');
+      var link = document.getElementById('waLink');
+      link.href = 'https://wa.me/919496334078?text=' + encodeURIComponent(text);
+      document.getElementById('waOut').hidden = false;
+      document.getElementById('formHint').textContent = 'Nothing is stored on this page. Your message goes only when you send it in WhatsApp.';
+      link.focus();
+    });
+  })();
+</script>
+
+</body>
+</html>
